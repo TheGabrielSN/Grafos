@@ -19,10 +19,12 @@ class MeuGrafo(GrafoListaAdjacencia):
         """
         self.lista_vertices = []
         for key in self.A:
-            if dfs or bfs:
+            if dfs or bfs: #[V0,V1,A]
                 self.lista_vertices.append([self.A[key].getV1(), self.A[key].getV2(), key])
-            else:
+            else: #[V0,V1]
                 self.lista_vertices.append([self.A[key].getV1(), self.A[key].getV2()])
+
+    #---------- Roteiro 1 ----------#
 
     def vertices_nao_adjacentes(self):
         '''
@@ -113,6 +115,8 @@ class MeuGrafo(GrafoListaAdjacencia):
             return True
         return False
 
+    #---------- Roteiro 2 ----------#
+
     def dfs(self, V='',**kwargs):
         '''
         Provê uma árvore (um grafo) que contém apenas as arestas do dfs
@@ -145,6 +149,8 @@ class MeuGrafo(GrafoListaAdjacencia):
                     self.dfs(aresta[1] if aresta[1]!= V else aresta[0],**{"dfs":False})
     
         return self._arvoredfs
+
+    #---------- Roteiro 3 ----------#
 
     def bfs(self, V='',**kwargs):
         '''
@@ -198,6 +204,7 @@ class MeuGrafo(GrafoListaAdjacencia):
             return True
         return False
 
+    #---------- Roteiro 4 ----------#
 
     def ha_ciclo(self):
         """
@@ -256,7 +263,6 @@ class MeuGrafo(GrafoListaAdjacencia):
         '''
         if V not in self.N:
             raise VerticeInvalidoException
-
         try:
             self.acdfs = kwargs["dfs"]
         except:
@@ -300,14 +306,13 @@ class MeuGrafo(GrafoListaAdjacencia):
         :return: Uma lista com vertices e arestas
         :raises: PathOutTheRange se o tamanho for maior que o possível
         '''
-        if(n<0 and n>len(self.N)):
-            return False
-        for i in self.N:
-            value = self.__dfs_caminho(i,**{"num":n})
-            if value != False:
-                return self.__outC(value)
-            
-            raise "PathOutTheRange"
+        if not (n<0 and n>len(self.N)):
+            for i in self.N:
+                value = self.__dfs_caminho(i,**{"num":n})
+                if value != False:
+                    return self.__outC(value)
+
+        raise "PathOutTheRange"
 
     def __outC(self,A):
         _lout = []
@@ -344,7 +349,6 @@ class MeuGrafo(GrafoListaAdjacencia):
         '''
         if V not in self.N:
             raise VerticeInvalidoException
-
         try:
             self.acdfs = kwargs["dfs"]
         except:
