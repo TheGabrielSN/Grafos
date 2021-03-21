@@ -396,4 +396,3 @@ class MeuGrafo(GrafoListaAdjacencia):
                 else:
                     return False
         return True
-            
