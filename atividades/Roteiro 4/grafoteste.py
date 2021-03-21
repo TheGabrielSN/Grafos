@@ -89,6 +89,47 @@ class TestGrafo(unittest.TestCase):
         self.gf.adicionaAresta('a16', 'B', 'D')
         self.gf.adicionaAresta('a17', 'B', 'E')
 
+        #Grafo não conexo
+        self.g2 = MeuGrafo(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S'])
+        self.g2.adicionaAresta('1','A','B')
+        self.g2.adicionaAresta('2','B','A')
+        self.g2.adicionaAresta('3','A','B')
+        self.g2.adicionaAresta('4','B','B')
+
+        self.g2.adicionaAresta('5','C','D')
+        self.g2.adicionaAresta('6','D','C')
+        self.g2.adicionaAresta('7','C','D')
+        self.g2.adicionaAresta('8','D','D')
+        self.g2.adicionaAresta('9','E','F')
+        self.g2.adicionaAresta('10','F','G')
+        self.g2.adicionaAresta('11','G','E')
+        self.g2.adicionaAresta('12','F','H')
+        self.g2.adicionaAresta('13','G','I')
+        self.g2.adicionaAresta('14','E','I')
+        self.g2.adicionaAresta('15','J','K')
+        self.g2.adicionaAresta('16','K','L')
+        self.g2.adicionaAresta('17','M','L')
+        self.g2.adicionaAresta('18','M','N')
+        self.g2.adicionaAresta('19','O','N')
+        self.g2.adicionaAresta('20','O','P')
+        self.g2.adicionaAresta('21','Q','P')
+        self.g2.adicionaAresta('22','Q','R')
+        self.g2.adicionaAresta('23','S','R')
+        self.g2.adicionaAresta('24','S','J')
+
+        #grafo K5
+        self.k5 = MeuGrafo(['A','B','C','D','E'])
+        self.k5.adicionaAresta('1','A','B')
+        self.k5.adicionaAresta('5','A','C')
+        self.k5.adicionaAresta('6','A','D')
+        self.k5.adicionaAresta('7','A','E')
+        self.k5.adicionaAresta('2','B','C')
+        self.k5.adicionaAresta('8','B','D')
+        self.k5.adicionaAresta('9','B','E')
+        self.k5.adicionaAresta('3','C','D')
+        self.k5.adicionaAresta('10','C','E')
+        self.k5.adicionaAresta('4','D','E')
+
     def test_adiciona_aresta(self):
         self.assertTrue(self.g_p.adicionaAresta('a10', 'J', 'C'))
         with self.assertRaises(ArestaInvalidaException):
@@ -257,6 +298,11 @@ class TestGrafo(unittest.TestCase):
         
         self.assertEqual(self.g_d.ha_ciclo(),False)
 
+        self.assertEqual(list(self.g2.ha_ciclo()),['A', '1', 'B', '2', 'A'])
+
+        self.assertEqual(list(self.k5.ha_ciclo()),['A', '1', 'B', '2', 'C', '5', 'A'])
+
+
     def test_caminho(self):
         self.assertEqual(list(self.g_p.caminho(1)),['J', 'a1', 'C'])
         self.assertEqual(list(self.g_p.caminho(2)),['J', 'a1', 'C', 'a2', 'E'])
@@ -275,6 +321,21 @@ class TestGrafo(unittest.TestCase):
         
         self.assertEqual(list(self.g_d.caminho(1)),['A', 'asd', 'B'])
         
+        self.assertEqual(list(self.g2.caminho(1)),['A', '1', 'B'])
+        self.assertEqual(list(self.g2.caminho(2)),['E', '9', 'F', '10', 'G'])
+        self.assertEqual(list(self.g2.caminho(3)),['E', '9', 'F', '10', 'G', '13', 'I'])
+        self.assertEqual(list(self.g2.caminho(4)),['E', '14', 'I', '13', 'G', '10', 'F', '12', 'H'])
+        self.assertEqual(list(self.g2.caminho(5)),['J', '15', 'K', '16', 'L', '17', 'M', '18', 'N', '19', 'O'])
+        self.assertEqual(list(self.g2.caminho(6)),['J', '15', 'K', '16', 'L', '17', 'M', '18', 'N', '19', 'O', '20', 'P'])
+        self.assertEqual(list(self.g2.caminho(7)),['J', '15', 'K', '16', 'L', '17', 'M', '18', 'N', '19', 'O', '20', 'P', '21', 'Q'])
+        self.assertEqual(list(self.g2.caminho(8)),['J', '15', 'K', '16', 'L', '17', 'M', '18', 'N', '19', 'O', '20', 'P', '21', 'Q', '22', 'R'])
+        self.assertEqual(list(self.g2.caminho(9)),['J', '15', 'K', '16', 'L', '17', 'M', '18', 'N', '19', 'O', '20', 'P', '21', 'Q', '22', 'R', '23', 'S'])
+
+        self.assertEqual(list(self.k5.caminho(1)),['A', '1', 'B'])
+        self.assertEqual(list(self.k5.caminho(2)),['A', '1', 'B', '2', 'C'])
+        self.assertEqual(list(self.k5.caminho(3)),['A', '1', 'B', '2', 'C', '3', 'D'])
+        self.assertEqual(list(self.k5.caminho(4)),['A', '1', 'B', '2', 'C', '3', 'D', '4', 'E'])
+
         with self.assertRaises(BaseException):
             self.g_p.caminho(0)
             self.g_p.caminho(5)
@@ -287,6 +348,10 @@ class TestGrafo(unittest.TestCase):
         self.assertEqual(self.gf.conexo(), True)
 
         self.assertEqual(self.g_d.conexo(), False)
+
+        self.assertEqual(self.g2.conexo(), False)
+
+        self.assertEqual(self.k5.conexo(), True)
 
 if __name__ == '__main__':
     unittest.main()

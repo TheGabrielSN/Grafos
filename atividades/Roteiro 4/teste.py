@@ -53,3 +53,68 @@ g_nd.adicionaAresta('a17', 'B', 'E')
 #print(g_nd.caminho(8))
 #print(g_nd.caminho(9))
 #print(g_nd.conexo())
+
+g2 = MeuGrafo(['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S'])
+g2.adicionaAresta('1','A','B')
+g2.adicionaAresta('2','B','A')
+g2.adicionaAresta('3','A','B')
+g2.adicionaAresta('4','B','B')
+
+g2.adicionaAresta('5','C','D')
+g2.adicionaAresta('6','D','C')
+g2.adicionaAresta('7','C','D')
+g2.adicionaAresta('8','D','D')
+
+g2.adicionaAresta('9','E','F')
+g2.adicionaAresta('10','F','G')
+g2.adicionaAresta('11','G','E')
+g2.adicionaAresta('12','F','H')
+g2.adicionaAresta('13','G','I')
+g2.adicionaAresta('14','E','I')
+
+g2.adicionaAresta('15','J','K')
+g2.adicionaAresta('16','K','L')
+g2.adicionaAresta('17','M','L')
+g2.adicionaAresta('18','M','N')
+g2.adicionaAresta('19','O','N')
+g2.adicionaAresta('20','O','P')
+g2.adicionaAresta('21','Q','P')
+g2.adicionaAresta('22','Q','R')
+g2.adicionaAresta('23','S','R')
+g2.adicionaAresta('24','S','J')
+
+#
+#print("CONEXO:",g2.conexo())
+#print("CICLO:",g2.ha_ciclo())
+#for i in range(1,15):
+#    try:
+#        print(f"CAMINHO {i} : {g2.caminho(i)}")
+#    except Exception as e:
+#        print(e)
+
+k5 = MeuGrafo(['A','B','C','D','E'])
+k5.adicionaAresta('1','A','B')
+k5.adicionaAresta('5','A','C')
+k5.adicionaAresta('6','A','D')
+k5.adicionaAresta('7','A','E')
+k5.adicionaAresta('2','B','C')
+k5.adicionaAresta('8','B','D')
+k5.adicionaAresta('9','B','E')
+k5.adicionaAresta('3','C','D')
+k5.adicionaAresta('10','C','E')
+k5.adicionaAresta('4','D','E')
+
+#print("CONEXO,k5.conexo()")
+#print("CICLO:",k5.ha_ciclo())
+#for i in range(1,10):
+#    try:
+#        print(f"CAMINHO {i} : {k5.caminho(i)}")
+#    except Exception as e:
+#        print(e)
+#
+
+
+
+
+
+

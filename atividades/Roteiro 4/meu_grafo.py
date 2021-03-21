@@ -393,10 +393,7 @@ class MeuGrafo(GrafoListaAdjacencia):
                 l.append(dfs.A[aresta].getV2())
             listadfs.append(l)
         for dfs in listadfs:
-            cont = 0
             for vertice in self.N:
-                if(vertice in dfs):
-                    cont += 1
-                else:
+                if not (vertice in dfs):
                     return False
         return True
